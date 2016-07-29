@@ -20,17 +20,16 @@ namespace WindowsFormsApplication4
         /// <param name="BoundingBox">The Boundingbox you want to draw.</param>
         /// <param name="bitmap">The canvas where you want to draw.</param>
         /// <returns></returns>
-        public Bitmap Draw(BoundingBox BoundingBox, Canvas canvas)
+        public void Draw(BoundingBox BoundingBox, Canvas canvas)
         {
-            Bitmap bitmap = canvas.GetCanvas();
+            var bitmap = canvas.GetCanvas();
             Graphics g = Graphics.FromImage(bitmap);            
             g.Clear(Color.Transparent);
             Rectangle Rectangle = new Rectangle();
             Rectangle = new Rectangle(Math.Min((int)BoundingBox.Xmin, (int)BoundingBox.Xmax), Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax),
                 Math.Max((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) - Math.Min((int)BoundingBox.Xmin, (int)BoundingBox.Xmax),
                 Math.Max((int)BoundingBox.Ymin, (int)BoundingBox.Ymax) - Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax));                      
-            g.DrawRectangle(new Pen(Color.Red, 1),Rectangle);
-            return bitmap; 
+            g.DrawRectangle(new Pen(Color.Red, 1),Rectangle);            
         }
         /// <summary>
         /// 
@@ -38,9 +37,9 @@ namespace WindowsFormsApplication4
         /// <param name="Shape"></param>
         /// <param name="bitmap"></param>
         /// <returns></returns>
-        public Bitmap Draw(Shape Shape, Canvas canvas)
+        public void Draw(Shape Shape, Canvas canvas)
         {
-            Bitmap bitmap = new Bitmap(canvas.Width, canvas.Height);
+            var bitmap = canvas.GetCanvas();
             switch (Shape.ShapeType)
             { 
                 case 1:
@@ -110,7 +109,7 @@ namespace WindowsFormsApplication4
                     }
                     break;
             }
-            return bitmap;
+           // return bitmap;
         }
     }
 }

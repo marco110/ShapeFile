@@ -36,9 +36,9 @@ namespace WindowsFormsApplication4
                 string FilePath = File.FileName;
                 MainFile.Read(FilePath);
                 Shape = ShapeFile.GetShapesInfo(FilePath);
-                Canvas b = new Canvas(pictureBox1.Width, pictureBox1.Height);
-                var Image = Painter.Draw(Shape,b);
-                pictureBox1.BackgroundImage = Image;
+                Canvas Canvas = new Canvas(pictureBox1.Width, pictureBox1.Height);
+                Painter.Draw(Shape, Canvas);
+                pictureBox1.BackgroundImage = Canvas.Bitmap;
             }
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -47,9 +47,9 @@ namespace WindowsFormsApplication4
             {               
                 BoundingBox.Xmax = e.X;
                 BoundingBox.Ymax = e.Y;
-                Canvas b = new Canvas(pictureBox1.Width, pictureBox1.Height);
-                var Image= Painter.Draw(BoundingBox,b);
-                pictureBox1.Image = Image;
+                Canvas Canvas = new Canvas(pictureBox1.Width, pictureBox1.Height);
+                Painter.Draw(BoundingBox, Canvas);
+                pictureBox1.Image = Canvas.Bitmap;
             }
         }
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -71,14 +71,14 @@ namespace WindowsFormsApplication4
                 Canvas Bitmap = new Canvas(pictureBox1.Width, pictureBox1.Height);
                 Canvas InBoxBitmap = new Canvas(pictureBox2.Width, pictureBox2.Height);
                 Canvas OutBoxBitmap = new Canvas(pictureBox3.Width, pictureBox3.Height);
-                var Image = Painter.Draw(BoundingBox, Bitmap);
-                pictureBox1.Image =Image;
+                Painter.Draw(BoundingBox, Bitmap);
+                pictureBox1.Image =Bitmap.Bitmap;
                 Operator Operator = new Operator();
                 var NewShape = Operator.Split(BoundingBox, Shape, Bitmap);
-                var Image2 = Painter.Draw(NewShape[0], InBoxBitmap);
-                var Image3 = Painter.Draw(NewShape[1], OutBoxBitmap);
-                pictureBox2.Image = Image2;
-                pictureBox3.Image = Image3;
+                Painter.Draw(NewShape[0], InBoxBitmap);
+                Painter.Draw(NewShape[1], OutBoxBitmap);
+                pictureBox2.Image = InBoxBitmap.Bitmap;
+                pictureBox3.Image = OutBoxBitmap.Bitmap;
             }
         }
         private void DrawBoundingBox_Click(object sender, EventArgs e)
