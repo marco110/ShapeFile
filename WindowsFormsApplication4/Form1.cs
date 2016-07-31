@@ -11,14 +11,11 @@ using System.Windows.Forms;
 namespace WindowsFormsApplication4
 {
     public partial class Form1 : Form
-    {
-        Painter Painter = new Painter();
-        BoundingBox BoundingBox = new BoundingBox();       
-        Shape Shape = new Shape();
-        ShapeFile ShapeFile = new ShapeFile();
-        MainFile MainFile = new MainFile();
+    {                                            
         bool ReadyDraw = false;
         bool StartDraw = false;
+        Shape Shape;
+        BoundingBox BoundingBox = new BoundingBox(); 
         public Form1()
         {
             InitializeComponent();
@@ -34,10 +31,13 @@ namespace WindowsFormsApplication4
             if (File.ShowDialog() == DialogResult.OK)
             {                             
                 string FilePath = File.FileName;
+                MainFile MainFile = new MainFile();
                 MainFile.Read(FilePath);
+                ShapeFile ShapeFile = new ShapeFile();
                 Shape = ShapeFile.GetShapesInfo(FilePath);
                 Canvas Canvas = new Canvas(pictureBox1.Width, pictureBox1.Height);
-                Painter.Draw(Shape, Canvas);
+                Painter Painter = new Painter(Canvas);
+                Painter.Draw(Shape);
                 pictureBox1.BackgroundImage = Canvas.Bitmap;
             }
         }
@@ -48,7 +48,8 @@ namespace WindowsFormsApplication4
                 BoundingBox.Xmax = e.X;
                 BoundingBox.Ymax = e.Y;
                 Canvas Canvas = new Canvas(pictureBox1.Width, pictureBox1.Height);
-                Painter.Draw(BoundingBox, Canvas);
+                Painter Painter = new Painter(Canvas);
+                Painter.Draw(BoundingBox);
                 pictureBox1.Image = Canvas.Bitmap;
             }
         }
@@ -68,17 +69,20 @@ namespace WindowsFormsApplication4
                 StartDraw = false;
                 BoundingBox.Xmax = e.X;
                 BoundingBox.Ymax = e.Y;
-                Canvas Bitmap = new Canvas(pictureBox1.Width, pictureBox1.Height);
-                Canvas InBoxBitmap = new Canvas(pictureBox2.Width, pictureBox2.Height);
-                Canvas OutBoxBitmap = new Canvas(pictureBox3.Width, pictureBox3.Height);
-                Painter.Draw(BoundingBox, Bitmap);
-                pictureBox1.Image =Bitmap.Bitmap;
+                Canvas Canvas = new Canvas(pictureBox1.Width, pictureBox1.Height);
+                Canvas InBoxCanvas = new Canvas(pictureBox2.Width, pictureBox2.Height);
+                Canvas OutBoxCanvas = new Canvas(pictureBox3.Width, pictureBox3.Height);
+                Painter Painter = new Painter(Canvas);
+                Painter Painter1 = new Painter(InBoxCanvas);
+                Painter Painter2 = new Painter(OutBoxCanvas);
+                Painter.Draw(BoundingBox);
+                pictureBox1.Image = Canvas.Bitmap;
                 Operator Operator = new Operator();
-                var NewShape = Operator.Split(BoundingBox, Shape, Bitmap);
-                Painter.Draw(NewShape[0], InBoxBitmap);
-                Painter.Draw(NewShape[1], OutBoxBitmap);
-                pictureBox2.Image = InBoxBitmap.Bitmap;
-                pictureBox3.Image = OutBoxBitmap.Bitmap;
+                var NewShape = Operator.Split(BoundingBox, Shape, Canvas);
+                Painter1.Draw(NewShape[0]);
+                Painter2.Draw(NewShape[1]);
+                pictureBox2.Image = InBoxCanvas.Bitmap;
+                pictureBox3.Image = OutBoxCanvas.Bitmap;
             }
         }
         private void DrawBoundingBox_Click(object sender, EventArgs e)

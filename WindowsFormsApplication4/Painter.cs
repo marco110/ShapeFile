@@ -14,13 +14,20 @@ namespace WindowsFormsApplication4
 {
     class Painter
     {
+        public Canvas canvas;       
+        public Painter() { }
+        public Painter(Canvas canvas)
+        {
+            this.canvas = canvas;
+        } 
         /// <summary>
         /// Draw is a method to draw Boundingbox.
         /// </summary>
         /// <param name="BoundingBox">The Boundingbox you want to draw.</param>
         /// <param name="bitmap">The canvas where you want to draw.</param>
         /// <returns></returns>
-        public void Draw(BoundingBox BoundingBox, Canvas canvas)
+        /// 
+        public void Draw(BoundingBox BoundingBox)
         {
             var bitmap = canvas.GetCanvas();
             Graphics g = Graphics.FromImage(bitmap);            
@@ -37,7 +44,7 @@ namespace WindowsFormsApplication4
         /// <param name="Shape"></param>
         /// <param name="bitmap"></param>
         /// <returns></returns>
-        public void Draw(Shape Shape, Canvas canvas)
+        public void Draw(Shape Shape)
         {
             var bitmap = canvas.GetCanvas();
             switch (Shape.ShapeType)
