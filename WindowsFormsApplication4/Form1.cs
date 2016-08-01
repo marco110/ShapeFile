@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace WindowsFormsApplication4
 {
     public partial class Form1 : Form
-    {                                            
+    {                                        
         bool ReadyDraw = false;
         bool StartDraw = false;
         Shape Shape;
@@ -29,12 +29,12 @@ namespace WindowsFormsApplication4
             OpenFileDialog File = new OpenFileDialog();
             File.Filter = "shapefiles(*.shp)|*.shp|All files(*.*)|*.*";
             if (File.ShowDialog() == DialogResult.OK)
-            {                             
+            {             
                 string FilePath = File.FileName;
                 MainFile MainFile = new MainFile();
                 MainFile.Read(FilePath);
                 ShapeFile ShapeFile = new ShapeFile();
-                Shape = ShapeFile.GetShapesInfo(FilePath);
+                Shape = ShapeFile.GetShapes(FilePath);
                 Canvas Canvas = new Canvas(pictureBox1.Width, pictureBox1.Height);
                 Painter Painter = new Painter(Canvas);
                 Painter.Draw(Shape);

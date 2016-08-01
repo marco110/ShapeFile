@@ -15,17 +15,24 @@ namespace WindowsFormsApplication4
     class ShapeFile
     {
         public string FilePath;
+        private int shapetype;
+        public int ShapeType 
+        {
+            get { return shapetype; }
+            set { shapetype = value; }
+        }
         public ShapeFile(){}
         public ShapeFile(string FilePath)
         {
             this.FilePath = FilePath;
         }
-        public Shape GetShapesInfo(string FilePath)
-        {
+
+        public Shape GetShapes(string FilePath)
+        {           
             Shape Shape=new Shape();
             FileStream File = new FileStream(FilePath, FileMode.Open);
             BinaryReader br = new BinaryReader(File);
-            br.ReadBytes(32);
+            br.ReadBytes(32);          
             Shape.ShapeType =br.ReadInt32();
             Shape.Box[0] = br.ReadDouble();
             Shape.Box[1] = -1 * br.ReadDouble();
@@ -37,7 +44,7 @@ namespace WindowsFormsApplication4
             Shape.Box[7] = br.ReadDouble();
             switch (Shape.ShapeType)
             { 
-                case 1:
+                case 1:                    
                     Shape.Points.Clear();
                     while (br.PeekChar() != -1)
                     {

@@ -14,7 +14,7 @@ namespace WindowsFormsApplication4
 {
     class Operator
     {     
-        public Shape[] Split(BoundingBox BoundingBox, Shape Shape,Canvas Bitmap)
+        public Shape[] Split(BoundingBox BoundingBox, Shape Shape,Canvas Canvas)
         {
             Shape[]NewShape=new Shape[2];
             NewShape[0] = new Shape(Shape.ShapeType,Shape.Box);
@@ -24,10 +24,10 @@ namespace WindowsFormsApplication4
                 case 1:                    
                     foreach (Point Point in Shape.Points)
                     {
-                        if ((Point.X - Shape.Box[0]) * (float)(Bitmap.Width / (Shape.Box[2] - Shape.Box[0])) > Math.Min((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
-                                                  (Point.X - Shape.Box[0]) * (float)(Bitmap.Width / (Shape.Box[2] - Shape.Box[0])) < Math.Max((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
-                                                  (Point.Y - Shape.Box[1]) * (float)(Bitmap.Height / (Shape.Box[3] - Shape.Box[1])) > Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax) &&
-                                                  (Point.Y - Shape.Box[1]) * (float)(Bitmap.Height / (Shape.Box[3] - Shape.Box[1])) < Math.Max((int)BoundingBox.Ymin, (int)BoundingBox.Ymax))
+                        if ((Point.X - Shape.Box[0]) * (float)(Canvas.Width / (Shape.Box[2] - Shape.Box[0])) > Math.Min((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
+                                                  (Point.X - Shape.Box[0]) * (float)(Canvas.Width / (Shape.Box[2] - Shape.Box[0])) < Math.Max((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
+                                                  (Point.Y - Shape.Box[1]) * (float)(Canvas.Height / (Shape.Box[3] - Shape.Box[1])) > Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax) &&
+                                                  (Point.Y - Shape.Box[1]) * (float)(Canvas.Height / (Shape.Box[3] - Shape.Box[1])) < Math.Max((int)BoundingBox.Ymin, (int)BoundingBox.Ymax))
                         {
                             NewShape[0].Points.Add(Point);
                         }
@@ -56,10 +56,10 @@ namespace WindowsFormsApplication4
                             for (int j = startpoint; j < endpoint; j++)
                             {
                                 Point poi = (Point)p.Point[j];
-                                if ((poi.X - Shape.Box[0]) * (float)(Bitmap.Width / (Shape.Box[2] - Shape.Box[0])) > Math.Min((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
-                                                  (poi.X - Shape.Box[0]) * (float)(Bitmap.Width / (Shape.Box[2] - Shape.Box[0])) < Math.Max((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
-                                                  (poi.Y - Shape.Box[1]) * (float)(Bitmap.Height / (Shape.Box[3] - Shape.Box[1])) > Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax) &&
-                                                  (poi.Y - Shape.Box[1]) * (float)(Bitmap.Height / (Shape.Box[3] - Shape.Box[1])) < Math.Max((int)BoundingBox.Ymin, (int)BoundingBox.Ymax))
+                                if ((poi.X - Shape.Box[0]) * (float)(Canvas.Width / (Shape.Box[2] - Shape.Box[0])) > Math.Min((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
+                                                  (poi.X - Shape.Box[0]) * (float)(Canvas.Width / (Shape.Box[2] - Shape.Box[0])) < Math.Max((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
+                                                  (poi.Y - Shape.Box[1]) * (float)(Canvas.Height / (Shape.Box[3] - Shape.Box[1])) > Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax) &&
+                                                  (poi.Y - Shape.Box[1]) * (float)(Canvas.Height / (Shape.Box[3] - Shape.Box[1])) < Math.Max((int)BoundingBox.Ymin, (int)BoundingBox.Ymax))
                                 {
                                     NewShape[0].Polylines.Add(p);
                                 }
@@ -90,10 +90,10 @@ namespace WindowsFormsApplication4
                             for (int j = startpoint; j < endpoint; j++)
                             {
                                 Point poi = (Point)p.Point[j];
-                                if ((poi.X - Shape.Box[0]) * (float)(Bitmap.Width / (Shape.Box[2] - Shape.Box[0])) > Math.Min((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
-                                                  (poi.X - Shape.Box[0]) * (float)(Bitmap.Width / (Shape.Box[2] - Shape.Box[0])) < Math.Max((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
-                                                  (poi.Y - Shape.Box[1]) * (float)(Bitmap.Height / (Shape.Box[3] - Shape.Box[1])) > Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax) &&
-                                                  (poi.Y - Shape.Box[1]) * (float)(Bitmap.Height / (Shape.Box[3] - Shape.Box[1])) < Math.Max((int)BoundingBox.Ymin, (int)BoundingBox.Ymax))
+                                if ((poi.X - Shape.Box[0]) * (float)(Canvas.Width / (Shape.Box[2] - Shape.Box[0])) > Math.Min((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
+                                                  (poi.X - Shape.Box[0]) * (float)(Canvas.Width / (Shape.Box[2] - Shape.Box[0])) < Math.Max((int)BoundingBox.Xmin, (int)BoundingBox.Xmax) &&
+                                                  (poi.Y - Shape.Box[1]) * (float)(Canvas.Height / (Shape.Box[3] - Shape.Box[1])) > Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax) &&
+                                                  (poi.Y - Shape.Box[1]) * (float)(Canvas.Height / (Shape.Box[3] - Shape.Box[1])) < Math.Max((int)BoundingBox.Ymin, (int)BoundingBox.Ymax))
                                 {
                                     NewShape[0].Polygons.Add(p);
                                 }

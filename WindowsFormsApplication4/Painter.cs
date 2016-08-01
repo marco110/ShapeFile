@@ -14,22 +14,26 @@ namespace WindowsFormsApplication4
 {
     class Painter
     {
-        public Canvas canvas;       
+        public Canvas Canvas;
+        public Style Style;
         public Painter() { }
         public Painter(Canvas canvas)
         {
-            this.canvas = canvas;
-        } 
-        /// <summary>
-        /// Draw is a method to draw Boundingbox.
-        /// </summary>
-        /// <param name="BoundingBox">The Boundingbox you want to draw.</param>
-        /// <param name="bitmap">The canvas where you want to draw.</param>
-        /// <returns></returns>
-        /// 
+            this.Canvas = canvas;
+        }
+        public Painter(Style Style)
+        {
+            this.Style = Style;
+        }
+        public Painter(Canvas Canvas, Style Style)
+        {
+            this.Style = Style;
+            this.Canvas = Canvas;
+        }
+       
         public void Draw(BoundingBox BoundingBox)
         {
-            var bitmap = canvas.GetCanvas();
+            var bitmap = Canvas.GetCanvas();
             Graphics g = Graphics.FromImage(bitmap);            
             g.Clear(Color.Transparent);
             Rectangle Rectangle = new Rectangle();
@@ -38,15 +42,10 @@ namespace WindowsFormsApplication4
                 Math.Max((int)BoundingBox.Ymin, (int)BoundingBox.Ymax) - Math.Min((int)BoundingBox.Ymin, (int)BoundingBox.Ymax));                      
             g.DrawRectangle(new Pen(Color.Red, 1),Rectangle);            
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Shape"></param>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
+        
         public void Draw(Shape Shape)
         {
-            var bitmap = canvas.GetCanvas();
+            var bitmap = Canvas.GetCanvas();
             switch (Shape.ShapeType)
             { 
                 case 1:

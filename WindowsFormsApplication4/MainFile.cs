@@ -14,23 +14,24 @@ namespace WindowsFormsApplication4
 {
     class MainFile
     {
-        public string FilePath { get; set; }
-        public int Filecode, Filelength, Version, Shapetype, Recordnumber, Contentlength;
+        public string FilePath;
+        public int FileCode, FileLength, Version, ShapeType, RecordNumber, ContentLength;
         public double[] Box = new double[8];
         int[] unused = new int[5];
         public void Read(string FilePath)
         {
+            Shape Shape = new Shape();
             FileStream File = new FileStream(FilePath, FileMode.Open);
             BinaryReader br = new BinaryReader(File);
-            Filecode = br.ReadInt32();
+            FileCode = br.ReadInt32();
             unused[0] = br.ReadInt32();
             unused[1] = br.ReadInt32();
             unused[2] = br.ReadInt32();
             unused[3] = br.ReadInt32();
             unused[4] = br.ReadInt32();
-            Filelength = br.ReadInt32();
+            FileLength = br.ReadInt32();
             Version = br.ReadInt32();
-            Shapetype = br.ReadInt32();
+            Shape.ShapeType = br.ReadInt32();
             Box[0] = br.ReadDouble();
             Box[1] = -1 * br.ReadDouble();
             Box[2] = br.ReadDouble();
@@ -39,15 +40,15 @@ namespace WindowsFormsApplication4
             Box[5] = br.ReadDouble();
             Box[6] = br.ReadDouble();
             Box[7] = br.ReadDouble();
-            switch (Shapetype)
+            switch (ShapeType)
             { 
                 case 1:
                     while (br.PeekChar() != -1)
                     {
                         Point Point = new Point();
-                        Recordnumber = br.ReadInt32();
-                        Contentlength = br.ReadInt32();
-                        Shapetype = br.ReadInt32();                        
+                        RecordNumber = br.ReadInt32();
+                        ContentLength = br.ReadInt32();
+                        ShapeType = br.ReadInt32();                        
                         Point.X = br.ReadDouble();
                         Point.Y = -1 * br.ReadDouble();
                     }                   
@@ -56,9 +57,9 @@ namespace WindowsFormsApplication4
                     while(br.PeekChar()!=-1)
                     {
                         Polyline Polyline = new Polyline();
-                        Recordnumber = br.ReadInt32();
-                        Contentlength = br.ReadInt32();
-                        Shapetype = br.ReadInt32();
+                        RecordNumber = br.ReadInt32();
+                        ContentLength = br.ReadInt32();
+                        ShapeType = br.ReadInt32();
                         Polyline.Box[0] = br.ReadDouble();
                         Polyline.Box[1] = br.ReadDouble();
                         Polyline.Box[2] = br.ReadDouble();
@@ -82,9 +83,9 @@ namespace WindowsFormsApplication4
                     while (br.PeekChar() != -1)
                     {
                         Polygon Polygon = new Polygon();
-                        Recordnumber = br.ReadInt32();
-                        Contentlength = br.ReadInt32();
-                        Shapetype = br.ReadInt32();
+                        RecordNumber = br.ReadInt32();
+                        ContentLength = br.ReadInt32();
+                        ShapeType = br.ReadInt32();
                         Polygon.Box[0] = br.ReadDouble();
                         Polygon.Box[1] = br.ReadDouble();
                         Polygon.Box[2] = br.ReadDouble();

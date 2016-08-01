@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace WindowsFormsApplication4
 {
-    public class Canvas
+    class Canvas
     {
         public int Width;
         public int Height;
